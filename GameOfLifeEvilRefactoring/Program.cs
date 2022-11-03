@@ -48,11 +48,7 @@ namespace GameOfLifeEvilRefactoring
                         if (j != 10 && b[i - 1, j + 1] == 1) n++;
                     }
 
-                    if (j != 0)
-                    {
-                        if (b[i, j - 1] == 1) n++;
-                        if (i != 10 && b[i + 1, j - 1] == 1) n++;
-                    }
+                    n = DoThing(j, b, i, n);
 
                     if (i != 10)
                     {
@@ -67,8 +63,7 @@ namespace GameOfLifeEvilRefactoring
                         if (b[i, j] == 1) nb[i, j] = 1;
                         else
                         {
-                            if (n == 3) nb[i, j] = 1;
-                            else nb[i, j] = 0;
+                            Foo.Bar(n, nb, i, j);
                         }
                     }
                     else nb[i, j] = 0;
@@ -126,8 +121,7 @@ namespace GameOfLifeEvilRefactoring
                         if (b[i, j] == 1) nb[i, j] = 1;
                         else
                         {
-                            if (n == 3) nb[i, j] = 1;
-                            else nb[i, j] = 0;
+                            Foo.Bar2(n, nb, i, j);
                         }
                     }
                     else nb[i, j] = 0;
@@ -195,6 +189,32 @@ namespace GameOfLifeEvilRefactoring
             b = nb;
             Console.WriteLine();
             Console.ReadLine();
+        }
+
+        static int DoThing(int j, int[,] b, int i, int n)
+        {
+            if (j != 0)
+            {
+                if (b[i, j - 1] == 1) n++;
+                if (i != 10 && b[i + 1, j - 1] == 1) n++;
+            }
+
+            return n;
+        }
+    }
+
+    class Foo
+    {
+        public static void Bar(int n, int[,] nb, int i, int j)
+        {
+            if (n == 3) nb[i, j] = 1;
+            else nb[i, j] = 0;
+        }
+
+        public static void Bar2(int n, int[,] nb, int i, int j)
+        {
+            if (n == 3) nb[i, j] = 1;
+            else nb[i, j] = 0;
         }
     }
 }
